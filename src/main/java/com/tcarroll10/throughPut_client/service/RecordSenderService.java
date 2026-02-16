@@ -51,10 +51,10 @@ public class RecordSenderService {
                     if (totalSent % 1_000_000 == 0) {
                         long elapsed = System.currentTimeMillis() - startTime;
                         double rate = (totalSent / (elapsed / 1000.0));
-                        log.info("Progress: {:,} / {:,} records ({:.1f}%) - Rate: {:.0f} records/sec", 
-                            totalSent, TOTAL_RECORDS, 
-                            (totalSent * 100.0 / TOTAL_RECORDS),
-                            rate);
+                        log.info("Progress: {} / {} records ({}%) - Rate: {} records/sec",
+                            String.format("%,d", totalSent), String.format("%,d", TOTAL_RECORDS),
+                            String.format("%.1f", totalSent * 100.0 / TOTAL_RECORDS),
+                            String.format("%.0f", rate));
                     }
                 } catch (Exception e) {
                     failedBatches.incrementAndGet();
@@ -73,10 +73,10 @@ public class RecordSenderService {
             double avgRate = TOTAL_RECORDS / (totalTime / 1000.0);
 
             log.info("===== COMPLETE =====");
-            log.info("Total records sent: {:,}", TOTAL_RECORDS);
+            log.info("Total records sent: {}", String.format("%,d", TOTAL_RECORDS));
             log.info("Failed batches: {}", failedBatches.get());
-            log.info("Total time: {:.2f} minutes ({} seconds)", minutes, totalTime / 1000);
-            log.info("Average rate: {:.0f} records/second", avgRate);
+            log.info("Total time: {} minutes ({} seconds)", String.format("%.2f", minutes), totalTime / 1000);
+            log.info("Average rate: {} records/second", String.format("%.0f", avgRate));
             log.info("====================");
         } catch (InterruptedException e) {
             log.error("Interrupted while waiting for completion", e);
