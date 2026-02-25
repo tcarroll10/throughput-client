@@ -76,7 +76,7 @@ public class RecordSenderService {
                         // Send single record directly
                         AccountingResult record = new AccountingResult(
                                 String.valueOf(batchNum),
-                                "payload-" + batchNum,
+                                "{\"data\":\"payload-" + batchNum + "\"}",
                                 System.currentTimeMillis());
 
                         HttpEntity<AccountingResult> request = new HttpEntity<>(record, headers);
@@ -150,7 +150,7 @@ public class RecordSenderService {
         for (int i = 0; i < size; i++) {
             batch.add(new AccountingResult(
                     String.valueOf(startId + i),
-                    "payload-" + (startId + i),
+                    "{\"data\":\"payload-" + (startId + i) + "\"}",
                     timestamp));
         }
         return batch;
